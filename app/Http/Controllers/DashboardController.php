@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuditLog;
+use App\Models\Equipement;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -99,6 +100,14 @@ class DashboardController extends Controller
             ->orderBy('sla_deadline')
             ->get();
 
+        // Stats parc informatique
+        $parcStats = [
+            'total'          => Equipement::count(),
+            'actifs'         => Equipement::where('statut', 'actif')->count(),
+            'en_maintenance' => Equipement::where('statut', 'en_maintenance')->count(),
+            'hors_service'   => Equipement::where('statut', 'hors_service')->count(),
+        ];
+
         return view('dashboard.technician', compact(
             'myOpenTickets',
             'myInProgressTickets',
@@ -107,7 +116,8 @@ class DashboardController extends Controller
             'unassignedTickets',
             'urgentTickets',
             'pendingUnassigned',
-            'myActiveTickets'
+            'myActiveTickets',
+            'parcStats'
         ));
     }
 
@@ -174,9 +184,23 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        // Stats parc informatique
+        $parcStats = [
+            'total'          => Equipement::count(),
+            'actifs'         => Equipement::where('statut', 'actif')->count(),
+            'en_maintenance' => Equipement::where('statut', 'en_maintenance')->count(),
+            'hors_service'   => Equipement::where('statut', 'hors_service')->count(),
+            'garantie_expire'=> Equipement::whereNotNull('fin_garantie')->where('fin_garantie', '<', now())->count(),
+        ];
+
+        $parcParCategorie = Equipement::selectRaw('categorie, count(*) as total')
+            ->groupBy('categorie')
+            ->pluck('total', 'categorie');
+
         return view('dashboard.manager', compact(
             'stats', 'byPriority', 'byType',
-            'recentTickets', 'technicianPerf', 'recentLogs'
+            'recentTickets', 'technicianPerf', 'recentLogs',
+            'parcStats', 'parcParCategorie'
         ));
     }
 }

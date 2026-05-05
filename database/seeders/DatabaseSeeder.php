@@ -111,5 +111,8 @@ class DatabaseSeeder extends Seeder
             $user = $users[$idx % $users->count()];
             Ticket::create(array_merge($ticketData, ['user_id' => $user->id]));
         }
+
+        // --- Parc informatique
+        $this->call(EquipementSeeder::class);
     }
 }

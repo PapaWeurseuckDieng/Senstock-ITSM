@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
-                    <a href="{{ route('admin.users') }}" class="topbar-btn btn-outline">Annuler</a>
+                    <a href="{{ route('admin.users.index') }}" class="topbar-btn btn-outline">Annuler</a>
                     <button type="submit" class="topbar-btn btn-primary"><i class="fa-solid fa-user-plus"></i> Créer</button>
                 </div>
             </form>

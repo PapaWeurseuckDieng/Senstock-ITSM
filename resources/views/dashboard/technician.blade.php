@@ -154,6 +154,35 @@
     </div>
 </div>
 
+{{-- Résumé Parc Informatique --}}
+<div style="background:#fff; border-radius:12px; padding:1.25rem 1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:1.5rem;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="font-size:.88rem; font-weight:700; color:#1A1F2E; margin:0; display:flex; align-items:center; gap:.5rem;">
+            <svg width="15" height="15" fill="none" stroke="#889ABF" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Parc Informatique
+        </h3>
+        <a href="{{ route('parc.index') }}" style="font-size:.78rem; color:#889ABF; font-weight:600; text-decoration:none;">Voir le parc →</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem;">
+        <div style="text-align:center; padding:.75rem; background:#F9FAFB; border-radius:8px; border-top:3px solid #889ABF;">
+            <p style="font-size:1.4rem; font-weight:800; color:#1A1F2E; margin:0;">{{ $parcStats['total'] }}</p>
+            <p style="font-size:.7rem; color:#9CA3AF; margin:.25rem 0 0; text-transform:uppercase; font-weight:600;">Total</p>
+        </div>
+        <div style="text-align:center; padding:.75rem; background:#F0FDF4; border-radius:8px; border-top:3px solid #10B981;">
+            <p style="font-size:1.4rem; font-weight:800; color:#065F46; margin:0;">{{ $parcStats['actifs'] }}</p>
+            <p style="font-size:.7rem; color:#10B981; margin:.25rem 0 0; text-transform:uppercase; font-weight:600;">Actifs</p>
+        </div>
+        <div style="text-align:center; padding:.75rem; background:#FFFBEB; border-radius:8px; border-top:3px solid #F59E0B;">
+            <p style="font-size:1.4rem; font-weight:800; color:#92400E; margin:0;">{{ $parcStats['en_maintenance'] }}</p>
+            <p style="font-size:.7rem; color:#F59E0B; margin:.25rem 0 0; text-transform:uppercase; font-weight:600;">Maintenance</p>
+        </div>
+        <div style="text-align:center; padding:.75rem; background:#FEF2F2; border-radius:8px; border-top:3px solid #EF4444;">
+            <p style="font-size:1.4rem; font-weight:800; color:#991B1B; margin:0;">{{ $parcStats['hors_service'] }}</p>
+            <p style="font-size:.7rem; color:#EF4444; margin:.25rem 0 0; text-transform:uppercase; font-weight:600;">Hors service</p>
+        </div>
+    </div>
+</div>
+
 {{-- Mes tickets en cours --}}
 <div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.06);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">

@@ -111,6 +111,53 @@
     </div>
 </div>
 
+{{-- Suivi Parc Informatique --}}
+<div style="background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:1.5rem;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <h3 style="font-size:.9rem; font-weight:700; color:#1A1F2E; margin:0; display:flex; align-items:center; gap:.5rem;">
+            <svg width="16" height="16" fill="none" stroke="#889ABF" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Parc Informatique
+        </h3>
+        <a href="{{ route('parc.index') }}" style="font-size:.8rem; color:#889ABF; font-weight:600; text-decoration:none;">Gérer le parc →</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
+        <div style="text-align:center; padding:1rem; background:#F9FAFB; border-radius:10px; border-top:3px solid #889ABF;">
+            <p style="font-size:1.6rem; font-weight:800; color:#1A1F2E; margin:0;">{{ $parcStats['total'] }}</p>
+            <p style="font-size:.72rem; color:#9CA3AF; margin:.3rem 0 0; font-weight:600; text-transform:uppercase; letter-spacing:.04em;">Total</p>
+        </div>
+        <div style="text-align:center; padding:1rem; background:#F0FDF4; border-radius:10px; border-top:3px solid #10B981;">
+            <p style="font-size:1.6rem; font-weight:800; color:#065F46; margin:0;">{{ $parcStats['actifs'] }}</p>
+            <p style="font-size:.72rem; color:#10B981; margin:.3rem 0 0; font-weight:600; text-transform:uppercase; letter-spacing:.04em;">Actifs</p>
+        </div>
+        <div style="text-align:center; padding:1rem; background:#FFFBEB; border-radius:10px; border-top:3px solid #F59E0B;">
+            <p style="font-size:1.6rem; font-weight:800; color:#92400E; margin:0;">{{ $parcStats['en_maintenance'] }}</p>
+            <p style="font-size:.72rem; color:#F59E0B; margin:.3rem 0 0; font-weight:600; text-transform:uppercase; letter-spacing:.04em;">Maintenance</p>
+        </div>
+        <div style="text-align:center; padding:1rem; background:#FEF2F2; border-radius:10px; border-top:3px solid #EF4444;">
+            <p style="font-size:1.6rem; font-weight:800; color:#991B1B; margin:0;">{{ $parcStats['hors_service'] }}</p>
+            <p style="font-size:.72rem; color:#EF4444; margin:.3rem 0 0; font-weight:600; text-transform:uppercase; letter-spacing:.04em;">Hors service</p>
+        </div>
+        <div style="text-align:center; padding:1rem; background:#FEF2F2; border-radius:10px; border-top:3px solid #DC2626;">
+            <p style="font-size:1.6rem; font-weight:800; color:#991B1B; margin:0;">{{ $parcStats['garantie_expire'] }}</p>
+            <p style="font-size:.72rem; color:#DC2626; margin:.3rem 0 0; font-weight:600; text-transform:uppercase; letter-spacing:.04em;">Garantie expirée</p>
+        </div>
+    </div>
+    @if($parcParCategorie->count())
+    <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid #F3F4F6; display:flex; gap:.75rem; flex-wrap:wrap;">
+        @php
+        $catColors = ['ordinateur_bureau'=>'#889ABF','ordinateur_portable'=>'#8B5CF6','serveur'=>'#EF4444','imprimante'=>'#F59E0B','switch'=>'#10B981','routeur'=>'#06B6D4','onduleur'=>'#F97316','iot'=>'#EC4899','telephone_ip'=>'#14B8A6','autre'=>'#9CA3AF'];
+        $catLabels = \App\Models\Equipement::CATEGORIES;
+        @endphp
+        @foreach($parcParCategorie as $cat => $total)
+        <span style="display:inline-flex; align-items:center; gap:.35rem; background:#F9FAFB; border:1px solid #E5E7EB; padding:.3rem .7rem; border-radius:20px; font-size:.75rem; font-weight:600; color:#374151;">
+            <span style="width:7px; height:7px; border-radius:50%; background:{{ $catColors[$cat] ?? '#9CA3AF' }}; display:inline-block; flex-shrink:0;"></span>
+            {{ $catLabels[$cat] ?? $cat }} — {{ $total }}
+        </span>
+        @endforeach
+    </div>
+    @endif
+</div>
+
 {{-- Tickets récents --}}
 <div class="card" style="margin-bottom:20px;">
     <div class="card-header">

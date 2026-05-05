@@ -76,7 +76,7 @@ class AdminController extends Controller
         AuditLog::record('user.updated', $user, $old, $user->fresh()->toArray(),
             "Utilisateur {$user->name} mis à jour");
 
-        return redirect()->route('admin.users')->with('success', "Utilisateur mis à jour.");
+        return redirect()->route('admin.users.index')->with('success', "Utilisateur mis à jour.");
     }
 
     public function toggleUserStatus(User $user)

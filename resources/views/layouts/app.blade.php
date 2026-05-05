@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         :root {
@@ -533,7 +534,27 @@
             @endif
         </a>
 
+        {{-- Section IA --}}
+        <span class="nav-section-label">Intelligence Artificielle</span>
+        <a href="{{ route('ai.assistant') }}" class="nav-item {{ request()->routeIs('ai.assistant') ? 'active' : '' }}">
+            <svg class="nav-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/></svg>
+            Assistant SENIA
+        </a>
+        <a href="{{ route('ai.base-connaissances') }}" class="nav-item {{ request()->routeIs('ai.base-connaissances') ? 'active' : '' }}">
+            <svg class="nav-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Base de connaissances
+        </a>
+        <a href="{{ route('ai.faq') }}" class="nav-item {{ request()->routeIs('ai.faq') ? 'active' : '' }}">
+            <svg class="nav-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            FAQ Intelligente
+        </a>
+
         @if(auth()->user()->isITStaff())
+        <a href="{{ route('parc.index') }}" class="nav-item {{ request()->routeIs('parc.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-desktop nav-icon"></i>
+            Parc Informatique
+        </a>
+
         <a href="{{ route('reports.index') }}" class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
             <i class="fa-solid fa-chart-bar nav-icon"></i>
             Rapports & KPI
@@ -543,7 +564,7 @@
         @if(auth()->user()->isAdministrateur() || auth()->user()->isResponsableIT())
         <span class="nav-section-label">Administration</span>
 
-        <a href="{{ route('admin.users') }}" class="nav-item {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+        <a href="{{ route('admin.users.index') }}" class="nav-item {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
             <i class="fa-solid fa-users nav-icon"></i>
             Utilisateurs
         </a>

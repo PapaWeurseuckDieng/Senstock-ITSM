@@ -149,11 +149,15 @@ class TicketService
     private function notifyITOnCreation(Ticket $ticket): void
     {
         // Service technique
-        $itTeamEmail = config('mail.it_team_email', env('IT_TEAM_EMAIL'));
+        $itTeamEmail = env('IT_TEAM_EMAIL');
         if ($itTeamEmail) {
             Mail::to($itTeamEmail)->queue(new TicketCreatedMail($ticket));
         }
 
+        $itManagerEmail = env('IT_MANAGER_EMAIL');
+        if ($itManagerEmail) {
+            Mail::to($itManagerEmail)->queue(new TicketResolvedMail($ticket));
+        }
         // Techniciens actifs
         $technicians = User::where('role', 'technicien')
             ->where('is_active', true)
@@ -172,6 +176,7 @@ class TicketService
                 Mail::to($manager->email)->queue(new TicketCreatedMail($ticket));
             }
         }
+
     }
 
     private function sendStatusNotifications(Ticket $ticket, string $oldStatus, string $newStatus): void
@@ -189,7 +194,7 @@ class TicketService
 
     private function notifyITManagerOnResolve(Ticket $ticket): void
     {
-        $itManagerEmail = config('mail.it_manager_email', env('IT_MANAGER_EMAIL'));
+        $itManagerEmail = env('IT_MANAGER_EMAIL');
         if ($itManagerEmail) {
             Mail::to($itManagerEmail)->queue(new TicketResolvedMail($ticket));
         }
