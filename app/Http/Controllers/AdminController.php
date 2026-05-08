@@ -49,7 +49,7 @@ class AdminController extends Controller
 
         AuditLog::record('user.created', $user, [], $user->toArray(), "Utilisateur {$user->name} créé");
 
-        return redirect()->route('admin.users')->with('success', "Utilisateur {$user->name} créé avec succès.");
+        return redirect()->route('admin.users.index')->with('success', "Utilisateur {$user->name} créé avec succès.");
     }
 
     public function editUser(User $user)

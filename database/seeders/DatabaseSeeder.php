@@ -11,60 +11,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ─── Administrateur ──────────────────────────────────────────────────
-        User::create([
-            'name'       => 'Administrateur SENSTOCK',
-            'email'      => 'admin@senstock.sn',
-            'password'   => Hash::make('Admin@2024!'),
-            'role'       => 'administrateur',
-            'department' => 'DSI',
-            'is_active'  => true,
-        ]);
+        
 
-        // ─── Responsable IT ──────────────────────────────────────────────────
-        User::create([
-            'name'       => 'Mamadou Diallo',
-            'email'      => 'responsable-it@senstock.sn',
-            'password'   => Hash::make('Senstock@2024!'),
-            'role'       => 'responsable_it',
-            'department' => 'DSI',
-            'phone'      => '+221 77 000 00 01',
-            'is_active'  => true,
-        ]);
-
-        // ─── Techniciens IT ──────────────────────────────────────────────────
-        $techniciens = [
-            ['name' => 'Ibrahima Sow',   'email' => 'i.sow@senstock.sn',   'phone' => '+221 77 000 00 02'],
-            ['name' => 'Fatou Ndiaye',   'email' => 'f.ndiaye@senstock.sn', 'phone' => '+221 77 000 00 03'],
-            ['name' => 'Ousmane Ba',     'email' => 'o.ba@senstock.sn',     'phone' => '+221 77 000 00 04'],
-        ];
-
-        foreach ($techniciens as $t) {
-            User::create(array_merge($t, [
-                'password'   => Hash::make('Senstock@2024!'),
-                'role'       => 'technicien',
-                'department' => 'DSI',
-                'is_active'  => true,
-            ]));
-        }
-
-        // ─── Utilisateurs ────────────────────────────────────────────────────
-        $utilisateurs = [
-            ['name' => 'Aissatou Mbaye',   'email' => 'a.mbaye@senstock.sn',   'department' => 'Comptabilité'],
-            ['name' => 'Cheikh Guèye',     'email' => 'c.gueye@senstock.sn',   'department' => 'Logistique'],
-            ['name' => 'Rokhaya Diop',     'email' => 'r.diop@senstock.sn',    'department' => 'RH'],
-            ['name' => 'Modou Fall',       'email' => 'm.fall@senstock.sn',     'department' => 'Commercial'],
-            ['name' => 'Ndéye Sarr',       'email' => 'n.sarr@senstock.sn',    'department' => 'Direction'],
-        ];
-
-        foreach ($utilisateurs as $u) {
-            User::create(array_merge($u, [
-                'password'  => Hash::make('Senstock@2024!'),
-                'role'      => 'utilisateur',
-                'is_active' => true,
-            ]));
-        }
-
+     
         // ─── Tickets de démonstration ─────────────────────────────────────
         $users       = User::where('role', 'utilisateur')->get();
         $technicien  = User::where('role', 'technicien')->first();
